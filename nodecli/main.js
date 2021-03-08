@@ -1,6 +1,6 @@
 const program = require("commander");
 const fs = require("fs");
-const marked = require("marked")
+const md2html = require("./md2html");
 
 // gfm optionを定義する
 program.option("--gfm", "GFMを有効にする");
@@ -20,8 +20,6 @@ fs.readFile(filePath, {encoding: "utf8"}, (err, file) => {
 		return;
 	}
 
-	const html = marked(file, {
-		gfm: cliOptions.gfm,
-	});
+	const html = md2html(file, cliOptions);
 	console.log(html);
 });
