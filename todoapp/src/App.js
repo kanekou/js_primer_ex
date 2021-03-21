@@ -8,13 +8,13 @@ export class App {
 		this.todoListView = new TodoListView();
 		this.todoListModel = new TodoListModel();
 	}
-		/**
-	 * Todoを追加するときに呼ばれるリスナー関数
-	 * @param {string} title
-	 */
-		handleAdd(title) {
-			this.todoListModel.addTodo(new TodoItemModel({ title, completed: false }));
-		}
+	/**
+ * Todoを追加するときに呼ばれるリスナー関数
+ * @param {string} title
+ */
+	handleAdd(title) {
+		this.todoListModel.addTodo(new TodoItemModel({ title, completed: false }));
+	}
 
 		/**
      * Todoの状態を更新したときに呼ばれるリスナー関数
@@ -24,13 +24,13 @@ export class App {
 		this.todoListModel.updateTodo({ id, completed });
 	}
 
-		/**
-     * Todoを削除したときに呼ばれるリスナー関数
-     * @param {{ id: number }}
-     */
-		handleDelete({ id }) {
-			this.todoListModel.deleteTodo({ id });
-		}
+	/**
+	 * Todoを削除したときに呼ばれるリスナー関数
+	 * @param {{ id: number }}
+	 */
+	handleDelete({ id }) {
+		this.todoListModel.deleteTodo({ id });
+	}
 
 	mount() {
 		const formElement = document.querySelector("#js-form");
@@ -57,6 +57,29 @@ export class App {
 		});
 
 		formElement.addEventListener("submit", (event) => {
+			// stop original submit event
+			event.preventDefault();
+			// value is empty
+			if (inputElement.value == "") { return; }
+			// add new TodoItem to TodoList
+			this.handleAdd(inputElement.value);
+			inputElement.value = "";
+		});
+		// let onEvent = (event) => {
+		// 	// stop original submit event
+		// 	event.preventDefault();
+		// 	// value is empty
+		// 	if (inputElement.value == "") { return; }
+		// 	// add new TodoItem to TodoList
+		// 	this.handleAdd(inputElement.value);
+		// 	inputElement.value = "";
+		// }
+		// formElement.addEventListener("submit", onEvent);
+	}
+
+	unmount() {
+		const formElement = document.querySelector("#js-form");
+		formElement.removeEventListener("submit", (event) => {
 			// stop original submit event
 			event.preventDefault();
 			// value is empty
