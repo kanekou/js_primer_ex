@@ -59,6 +59,8 @@ export class App {
 		formElement.addEventListener("submit", (event) => {
 			// stop original submit event
 			event.preventDefault();
+			// value is empty
+			if (inputElement.value == "") { return; }
 			// add new TodoItem to TodoList
 			this.handleAdd(inputElement.value);
 			inputElement.value = "";
