@@ -28,6 +28,15 @@ export class TodoListModel extends EventEmitter {
 		this.emit("change");
 	}
 
+	//TodoItemが空かチェックする
+	// @param {TodoItemModel} todoItem
+	validEmpty(todoItem) {
+		if (todoItem.title == "") {
+			return true;
+		}
+		return false;
+	}
+
 	// TodoItemを追加する
 	// @param {TodoItemModel} todoItem
 	addTodo(todoItem) {
